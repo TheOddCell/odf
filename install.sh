@@ -3,6 +3,6 @@
 
 git clone https://github.com/theoddcell/odf /usr/share/odf
 ln -s /usr/share/odf/odf /usr/local/bin/odf
-echo "installed\! Run /usr/share/odf/update.sh as root to update odf."
+echo "installed! Run /usr/share/odf/update.sh as root to update odf."
 exec /usr/local/bin/odf
 
