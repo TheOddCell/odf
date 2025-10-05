@@ -1,0 +1,44 @@
+#!/bin/sh
+# ODd Fetch
+RESET="$(printf '\033[0m')"
+
+# Fallback colors and logo
+ODFC1="$(printf '\033[1;34m')" # blue
+ODFC2="$(printf '\033[0;37m')" # white
+ODFLOGO="${C1}   /\\
+  /  \\
+ /____\\
+  ${C2}  ||
+    ||${RESET}"
+ID=linux
+PRETTY_NAME=Linux
+
+# Source configs
+if [ -f "/etc/os-release" ]; then
+  while IFS='=' read -r key val; do
+    eval "$key=\$val"
+  done < /etc/os-release
+fi;if [ -f "/usr/share/odf/logos/$ID" ]; then
+  . "/usr/share/odf/logos/$ID"
+fi;if [ -f ~/.odf.sh ]; then
+ . ~/.config/odf.sh
+fi
+
+# Fetch (if the sourced config doesn't do that)
+if [ -z "$HANDLE_FETCH" ]; then
+USERHOST="$(whoami)@$(cat /etc/hostname)"
+KERNEL="$(uname -r)"
+UPTIME="$(uptime -p | sed 's/^up //')"
+
+INFO="$(cat <<EOF
+${ODFC1}$USERHOST${RESET}
+${ODFC2}OS:${RESET}     $PRETTY_NAME
+${ODFC2}Kernel:${RESET} $KERNEL
+${ODFC2}Uptime:${RESET} $UPTIME
+EOF
+)"
+paste -d' ' /dev/stdin /dev/stdin <<EOF
+$(printf "%s\n" "$ODFLOGO")
+$(printf "%s\n" "$INFO")
+EOF
+fi
