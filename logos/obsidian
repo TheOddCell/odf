@@ -5,11 +5,11 @@ ODFC1=$(printf '\033[94m') # Light blue
 ODFLOGO=$(cat <<EOF
 ${ODFC1} *+++%
 ${ODFC1}****##%
-${ODFC1}#***#${ODFC3}@ @
-${ODFC3} @     @  @
-${ODFC3}   @    @  @
-${ODFC3}    @  ${ODFC2}#****#
-${ODFC3}     @${ODFC2} ######
+${ODFC1}#***#${ODFC3}\\ \\
+${ODFC3} \\     \\  \\
+${ODFC3}   \\    \\  \\
+${ODFC3}    \\  ${ODFC2}#****#
+${ODFC3}     \\${ODFC2} ######
 ${ODFC2}        ###%
 EOF
 )
