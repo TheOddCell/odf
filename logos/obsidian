@@ -6,10 +6,10 @@ ODFLOGO=$(cat <<EOF
 ${ODFC1} *+++%
 ${ODFC1}****##%
 ${ODFC1}#***#${ODFC3}\\ \\
-${ODFC3} \\     \\  \\
-${ODFC3}   \\    \\  \\
-${ODFC3}    \\  ${ODFC2}#****#
-${ODFC3}     \\_${ODFC2}######
+${ODFC3} \\    \\ \\
+${ODFC3}  \\    \\ \\
+${ODFC3}   \\  ${ODFC2}#****#
+${ODFC3}    \\_${ODFC2}######
 ${ODFC2}        ###%
 EOF
 )
