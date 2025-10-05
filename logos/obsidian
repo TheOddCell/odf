@@ -1,17 +1,15 @@
-ODFC1=$(printf '\033[34m') # Dark blue
+ODFC3=$(printf '\033[34m') # Dark blue, only used in logo
 ODFC2=$(printf '\033[95m') # Magenta
-c6=$(printf '\033[94m') # Light blue
-c4=$ODFC1
-c5=$ODFC2
+ODFC1=$(printf '\033[94m') # Light blue
 # copied straight from my attempt at adding to pfetch
 ODFLOGO=$(cat <<EOF
-${c6} *+++%
-${c6}****##%
-${c6}#***#${c4}@ @
-${c4} @     @  @
-${c4}   @    @  @
-${c4}    @  ${c5}#****#
-${c4}     @${c5} ######
-${c5}        ###%
+${ODFC1} *+++%
+${ODFC1}****##%
+${ODFC1}#***#${ODFC3}@ @
+${ODFC3} @     @  @
+${ODFC3}   @    @  @
+${ODFC3}    @  ${ODFC2}#****#
+${ODFC3}     @${ODFC2} ######
+${ODFC2}        ###%
 EOF
 )
