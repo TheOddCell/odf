@@ -20,7 +20,7 @@ if [ -f "/etc/os-release" ]; then
   done < /etc/os-release
 fi;if [ -f "/usr/share/odf/logos/$ID" ]; then
   . "/usr/share/odf/logos/$ID"
-fi;if [ -f ~/.odf.sh ]; then
+fi;if [ -f ~/.config/odf.sh ]; then
  . ~/.config/odf.sh
 fi
 
