@@ -38,6 +38,6 @@ get_current_slot() {
 }
 
 ODFST="$(cat <<EOF
-${OC1}Slot:   ${RESET}$(get_current_slot)
+${ODFC2}Slot:   ${RESET}$(get_current_slot)
 EOF
 )"
