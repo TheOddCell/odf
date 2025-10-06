@@ -38,8 +38,8 @@ get_current_slot_systemd() {
     echo unknown
 }
 
-$ODFST="$(cat<<EOF
-${ODFC2}Slot:  ${RESET}$(get_current_slot)
-${ODFC2}BtSlot:${RESET}$(get_current_slot_systemd)
+ODFST="$(cat <<EOF
+${ODFC2}Slot:   ${RESET}$(get_current_slot)
+${ODFC2}BtSlot: ${RESET}$(get_current_slot_systemd)
 EOF
 )"
