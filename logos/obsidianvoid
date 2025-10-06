@@ -25,4 +25,19 @@ EOF
 #3 VO03()3ID
 #2 2\__02[]1/
 
-ODFC1=${OC1}
+get_current_slot() {
+    if findmnt_output=$(findmnt -n -o SOURCE,UUID,PARTUUID,LABEL,PARTLABEL / 2>/dev/null); then
+        for item in $findmnt_output; do
+            case $item in
+                *_a*) echo a; return 0 ;;
+                *_b*) echo b; return 0 ;;
+            esac
+        done
+    fi
+    echo unknown
+}
+
+ODFST="$(cat <<EOF
+${OC1}Slot:   ${RESET}$(get_current_slot)
+EOF
+)"
