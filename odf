@@ -24,6 +24,7 @@ fi;if [ -f ~/.config/odf.sh ]; then
  . ~/.config/odf.sh
 fi
 
+
 # Fetch (if the sourced config doesn't do that)
 if [ -z "$HANDLE_FETCH" ]; then
 USERHOST="$(whoami)@$(cat /etc/hostname)"
@@ -32,7 +33,7 @@ UPTIME="$(uptime -p | sed 's/^up //')"
 
 INFO="$(cat <<EOF
 ${ODFC1}$USERHOST${RESET}
-${ODFC2}OS:${RESET}     $PRETTY_NAME
+${ODFC2}OS:${RESET}     $(echo $PRETTY_NAME|sed 's/^"\(.*\)"$/\1/')
 ${ODFC2}Kernel:${RESET} $KERNEL
 ${ODFC2}Uptime:${RESET} $UPTIME
 EOF
