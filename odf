@@ -33,7 +33,8 @@ ${ODFC1}$USERHOST${RESET}
 ${ODFC2}OS:${RESET}     $(echo $PRETTY_NAME|sed 's/^"\(.*\)"$/\1/')
 ${ODFC2}Kernel:${RESET} $KERNEL
 ${ODFC2}Uptime:${RESET} $UPTIME
-${ODFST:+$ODFST}EOF
+${ODFST}
+EOF
 )"
 paste -d' ' /dev/stdin /dev/stdin <<EOF
 $(printf "%s\n" "$ODFLOGO")
