@@ -27,12 +27,48 @@ fi
 USERHOST="$(whoami)@$(cat /etc/hostname)"
 KERNEL="$(uname -r)"
 UPTIME="$(uptime -p | sed 's/^up //')"
-
+# Thanks Dylan Araps! I took this from pfetch, but made a lot of changes to it.
+has() {
+    _cmd=$(command -v "$1") 2>/dev/null || return 1
+    [ -x "$_cmd" ] || return 1
+}
+get_pkgs() {
+  packages=$(
+    has bonsai     && bonsai list 2>/dev/null
+    has crux       && pkginfo -i 2>/dev/null
+    has pacman-key && pacman -Qq 2>/dev/null
+    has dpkg       && dpkg-query -f '.\n' -W 2>/dev/null
+    has rpm        && rpm -qa 2>/dev/null
+    has xbps-query && xbps-query -l 2>/dev/null
+    has apk        && apk info 2>/dev/null
+    has guix       && guix package --list-installed 2>/dev/null
+    has opkg       && opkg list-installed 2>/dev/null
+    has kiss       && printf '%s\n' /var/db/kiss/installed/*/ 2>/dev/null
+    has cpt-list   && printf '%s\n' /var/db/cpt/installed/*/ 2>/dev/null
+    has brew       && printf '%s\n' "$(brew --cellar)/"* 2>/dev/null
+    has emerge     && printf '%s\n' /var/db/pkg/*/*/ 2>/dev/null
+    has pkgtool    && printf '%s\n' /var/log/packages/* 2>/dev/null
+    has eopkg      && printf '%s\n' /var/lib/eopkg/package/* 2>/dev/null
+    has nix-store  && {
+      nix-store -q --requisites /run/current-system/sw 2>/dev/null
+      nix-store -q --requisites ~/.nix-profile 2>/dev/null
+    }
+  )
+  packages=${packages#"${packages%%[![:space:]]*}"}
+  packages=${packages%"${packages##*[![:space:]]}"}
+   echo $packages | wc -w
+#  case $packages in
+#    (1?*|[2-9]*)
+#       echo "$packages"
+#    ;;
+#  esac
+}
 INFO="$(cat <<EOF
 ${ODFC1}$USERHOST${RESET}
 ${ODFC2}OS:${RESET}     $(echo $PRETTY_NAME|sed 's/^"\(.*\)"$/\1/')
 ${ODFC2}Kernel:${RESET} $KERNEL
 ${ODFC2}Uptime:${RESET} $UPTIME
+${ODFC2}Pkgs:${RESET}   $(get_pkgs)
 ${ODFST}
 EOF
 )"
