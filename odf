@@ -22,6 +22,8 @@ fi;if [ -f "/usr/share/odf/logos/$ID" ]; then
   . "/usr/share/odf/logos/$ID"
 fi;if [ -f ~/.config/odf.sh ]; then
  . ~/.config/odf.sh
+fi;if [ -n "$1" ]; then
+ . "$1"
 fi
 
 USERHOST="$(whoami)@$(cat /etc/hostname)"
