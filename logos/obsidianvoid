@@ -1,0 +1,28 @@
+BG=$(printf "\033[48;2;34;34;34m") # Gray (bg)
+ODFC1=$(printf '\033[38;2;171;194;171m') # Light Green
+ODFC2=$(printf '\033[38;2;71;128;97m') # Dark Green
+OC3=$(printf '\033[34m') # Dark blue, only used in logo
+OC2=$(printf '\033[95m') # Magenta
+OC1=$(printf '\033[94m') # Light blue
+
+
+C1="$ODFC1"; C2="$ODFC2"
+C3=$(printf '\033[38;2;79;87;79m') # Gray
+ODFLOGO=$(cat <<EOF
+${BG}${C1} ____ 
+${C2}/${OC1}[]${C1}  \\
+${C3}VO${OC3}()${C3}ID
+${C2}\__${OC2}[]${C1}/ $(printf '\033[0m')
+EOF
+)
+#  ____
+# /[]  \
+# VO()ID
+# \__[]/
+
+#1  ____
+#2 /01[]1  \
+#3 VO03()3ID
+#2 2\__02[]1/
+
+ODFC1=${OC1}
