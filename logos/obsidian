@@ -49,3 +49,4 @@ else
 ${ODFC2}Slot:   ${RESET}$(get_current_slot)
 EOF
   )"
+fi
