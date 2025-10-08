@@ -1,6 +1,6 @@
 #!/bin/sh
 # ODd Fetch
-RESET="$(printf '\033[0m')"
+RESET="$(printf '\033[0m\033[39m\033[49m')"
 
 # Fallback colors and logo
 ODFC1="$(printf '\033[1;34m')" # blue
@@ -66,16 +66,22 @@ get_pkgs() {
 #  esac
 }
 INFO="$(cat <<EOF
-${ODFC1}$USERHOST${RESET}
-${ODFC2}OS:${RESET}     $(echo $PRETTY_NAME|sed 's/^"\(.*\)"$/\1/')
-${ODFC2}Kernel:${RESET} $KERNEL
-${ODFC2}Uptime:${RESET} $UPTIME
-${ODFC2}Pkgs:${RESET}   $(get_pkgs)
+${RESET}${ODFC1}$USERHOST${RESET}
+${RESET}${ODFC2}OS:${RESET}     $(echo $PRETTY_NAME|sed 's/^"\(.*\)"$/\1/')
+${RESET}${ODFC2}Kernel:${RESET} $KERNEL
+${RESET}${ODFC2}Uptime:${RESET} $UPTIME
+${RESET}${ODFC2}Pkgs:${RESET}   $(get_pkgs)
 ${ODFST}
 EOF
 )"
-paste -d' ' /dev/stdin /dev/stdin <<EOF
-$(printf "%s\n" "$ODFLOGO")
-$(printf "%s\n" "$INFO")
-EOF
+#paste -d' ' /dev/stdin /dev/stdin <<EOF
+#$(printf "%s\n" "$ODFLOGO")
+#$(printf "%s\n" "$INFO")
+#EOF
+# Split logo and info into lines
+printf "%s\n" "$ODFLOGO" > /tmp/logo.txt
+printf "%s\n" "$INFO" > /tmp/info.txt
+
+# Paste side by side
+paste /tmp/logo.txt /tmp/info.txt
 

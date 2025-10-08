@@ -5,9 +5,9 @@ C1="$ODFC1"; C2="$ODFC2"
 C3=$(printf '\033[38;2;79;87;79m') # Gray
 ODFLOGO=$(cat <<EOF
 ${BG}${C1} ____ 
-${C2}/${C1}    \\
-${C3}VO${C1}()${C3}ID
-${C2}\____${C1}/ $(printf '\033[0m')
+${BG}${C2}/${C1}    \\
+${BG}${C3}VO${C1}()${C3}ID
+${BG}${C2}\____${C1}/ $(printf '\033[0m')
 EOF
 )
 #  ____

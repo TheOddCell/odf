@@ -1,10 +1,10 @@
 ODFC1=$(printf '\033[38;2;23;147;209m') # Official Arch Blue
 ODFC2="${ODFC1}"
 ODFLOGO="${ODFC1}     _
-    / \\
-   /   \\ 
-  / ___ \\
- /_/   \\_\\
+${ODFC1}    / \\
+${ODFC1}   /   \\ 
+${ODFC1}  / ___ \\
+${ODFC1} /_/   \\_\\
 "
 
 #     _
