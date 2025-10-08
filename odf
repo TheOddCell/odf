@@ -23,6 +23,7 @@ fi;if [ -f "/usr/share/odf/logos/$ID" ]; then
 fi;if [ -f ~/.config/odf.sh ]; then
  . ~/.config/odf.sh
 fi;if [ -n "$1" ]; then
+ ODFST=
  . "$1"
 fi
 
