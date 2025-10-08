@@ -25,21 +25,27 @@ get_current_slot() {
     fi
     echo unknown
 }
-get_current_slot_systemd() {
-    if bootctl_output=$(bootctl status 2>/dev/null); then
-        slot=$(printf '%s\n' "$bootctl_output" |
-            sed -n 's/^[[:space:]]*id:[[:space:]]*.*obsidian-\([ab]\)\.conf.*/\1/p' |
-            head -n1)
-        if [ -n "$slot" ]; then
-            echo "$slot"
-            return 0
-        fi
-    fi
-    echo unknown
-}
 
-ODFST="$(cat <<EOF
+get_current_slot_systemd() {
+  if bootctl_output=$(bootctl status 2>/dev/null); then
+    slot=$(printf '%s\n' "$bootctl_output" |
+      sed -n 's/^[[:space:]]*id:[[:space:]]*.*obsidian-\([ab]\)\.conf.*/\1/p' |
+      head -n1)
+    if [ -n "$slot" ]; then
+      echo "$slot"
+      return 0
+    fi
+  fi
+  return 1
+}
+if get_current_slot_systemd > /dev/null 2>/dev/null; then
+  ODFST="$(cat <<EOF
 ${ODFC2}Slot:   ${RESET}$(get_current_slot)
 ${ODFC2}BtSlot: ${RESET}$(get_current_slot_systemd)
 EOF
-)"
+  )"
+else
+  ODFST="$(cat <<EOF
+${ODFC2}Slot:   ${RESET}$(get_current_slot)
+EOF
+  )"
