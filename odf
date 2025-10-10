@@ -1,5 +1,6 @@
 #!/bin/sh
 # ODd Fetch
+exec 3>/dev/null
 RESET="$(printf '\033[0m\033[39m\033[49m')"
 
 # Fallback colors and logo
@@ -32,29 +33,29 @@ KERNEL="$(uname -r)"
 UPTIME="$(uptime -p | sed 's/^up //')"
 # Thanks Dylan Araps! I took this from pfetch, but made a lot of changes to it.
 has() {
-    _cmd=$(command -v "$1") 2>/dev/null || return 1
+    _cmd=$(command -v "$1") 2>&3 || return 1
     [ -x "$_cmd" ] || return 1
 }
 get_pkgs() {
   packages=$(
-    has bonsai     && bonsai list 2>/dev/null
-    has crux       && pkginfo -i 2>/dev/null
-    has pacman-key && pacman -Qq 2>/dev/null
-    has dpkg       && dpkg-query -f '.\n' -W 2>/dev/null
-    has rpm        && rpm -qa 2>/dev/null
-    has xbps-query && xbps-query -l 2>/dev/null
-    has apk        && apk info 2>/dev/null
-    has guix       && guix package --list-installed 2>/dev/null
-    has opkg       && opkg list-installed 2>/dev/null
-    has kiss       && printf '%s\n' /var/db/kiss/installed/*/ 2>/dev/null
-    has cpt-list   && printf '%s\n' /var/db/cpt/installed/*/ 2>/dev/null
-    has brew       && printf '%s\n' "$(brew --cellar)/"* 2>/dev/null
-    has emerge     && printf '%s\n' /var/db/pkg/*/*/ 2>/dev/null
-    has pkgtool    && printf '%s\n' /var/log/packages/* 2>/dev/null
-    has eopkg      && printf '%s\n' /var/lib/eopkg/package/* 2>/dev/null
+    has bonsai     && bonsai list 2>&3
+    has crux       && pkginfo -i 2>&3
+    has pacman-key && pacman -Qq 2>&3
+    has dpkg       && dpkg-query -f '.\n' -W 2>&3
+    has rpm        && rpm -qa 2>&3
+    has xbps-query && xbps-query -l 2>&3
+    has apk        && apk info 2>&3
+    has guix       && guix package --list-installed 2>&3
+    has opkg       && opkg list-installed 2>&3
+    has kiss       && printf '%s\n' /var/db/kiss/installed/*/ 2>&3
+    has cpt-list   && printf '%s\n' /var/db/cpt/installed/*/ 2>&3
+    has brew       && printf '%s\n' "$(brew --cellar)/"* 2>&3
+    has emerge     && printf '%s\n' /var/db/pkg/*/*/ 2>&3
+    has pkgtool    && printf '%s\n' /var/log/packages/* 2>&3
+    has eopkg      && printf '%s\n' /var/lib/eopkg/package/* 2>&3
     has nix-store  && {
-      nix-store -q --requisites /run/current-system/sw 2>/dev/null
-      nix-store -q --requisites ~/.nix-profile 2>/dev/null
+      nix-store -q --requisites /run/current-system/sw 2>&3
+      nix-store -q --requisites ~/.nix-profile 2>&3
     }
   )
   packages=${packages#"${packages%%[![:space:]]*}"}
@@ -76,7 +77,4 @@ ${ODFST}
 EOF
 )"
 
-printf "%s\n" "$ODFLOGO" > "/tmp/logo.txt"
-printf "%s\n" "$INFO" > "/tmp/info.txt"
-paste /tmp/logo.txt /tmp/info.txt
-rm /tmp/logo.txt /tmp/info.txt
+paste <(printf "%s\n" "$ODFLOGO") <(printf "%s\n" "$INFO")
