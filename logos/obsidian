@@ -1,8 +1,9 @@
 ODFC3=$(printf '\033[34m') # Dark blue, only used in logo
 ODFC2=$(printf '\033[95m') # Magenta
 ODFC1=$(printf '\033[94m') # Light blue
+ODFC4=$(printf '\033[38;2;23;147;209m') # Arch blue
 ODFLOGO=$(cat <<EOF
-${ODFC1}[]${ODFC3}\\
+${ODFC1}[]${ODFC3}\\${ODFC4}󰣇
 ${ODFC3}\\ \\\\
 ${ODFC3} \\${ODFC2}[]
 EOF
