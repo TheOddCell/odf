@@ -76,8 +76,7 @@ ${ODFST}
 EOF
 )"
 
-UUID="$(cat /proc/sys/kernel/random/uuid)"
-printf "%s\n" "$ODFLOGO" > "/tmp/${UUID}logo.txt"
-printf "%s\n" "$INFO" > "/tmp/${UUID}info.txt"
+printf "%s\n" "$ODFLOGO" > "/tmp/logo.txt"
+printf "%s\n" "$INFO" > "/tmp/info.txt"
 paste /tmp/logo.txt /tmp/info.txt
-rm "/tmp/${UUID}*"
+rm /tmp/logo.txt /tmp/info.txt
