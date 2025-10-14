@@ -77,4 +77,9 @@ ${ODFST}
 EOF
 )"
 
-paste <(printf "%s\n" "$ODFLOGO") <(printf "%s\n" "$INFO")
+if [ -n "$ODFUD" ]; then
+  echo "$ODFLOGO"
+  echo "$INFO"
+else
+  paste <(printf "%s\n" "$ODFLOGO") <(printf "%s\n" "$INFO")
+fi
