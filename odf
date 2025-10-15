@@ -17,10 +17,12 @@ if [ -n "$ODFCTRL" ]; then
   exec 3>&2
   if [ "$1" = "upd" ]; then
     [ "$(id -u)" -eq 0 ] || { echo "Must be run as root." >&2; exit 1; }
-    exec /usr/share/odf/update.sh
+    /usr/share/odf/update.sh
+    exit
   elif [ "$1" = "uninst" ]; then
     [ "$(id -u)" -eq 0 ] || { echo "Must be run as root." >&2; exit 1; }
-    exec /usr/share/odf/uninstall.sh
+    /usr/share/odf/uninstall.sh
+    exit
   fi
 fi
 if [ "$1" = "sh" ]; then
