@@ -13,7 +13,19 @@ ODFLOGO="${C1}   /\\
     ||${RESET}"
 ID=linux
 PRETTY_NAME=Linux
-
+if [ -n "$ODFCTRL" ]; then
+  exec 3>&2
+  if [ "$1" = "upd" ]; then
+    [ "$(id -u)" -eq 0 ] || { echo "Must be run as root." >&2; exit 1; }
+    exec /usr/share/odf/update.sh
+  elif [ "$1" = "uninst" ]; then
+    [ "$(id -u)" -eq 0 ] || { echo "Must be run as root." >&2; exit 1; }
+    exec /usr/share/odf/uninstall.sh
+  fi
+fi
+if [ "$1" = "sh" ]; then
+  PS1="odf$ " ODFCTRL="yep" exec sh
+fi
 # Source configs
 if [ -f "/etc/os-release" ]; then
   while IFS='=' read -r key val; do
@@ -33,8 +45,8 @@ KERNEL="$(uname -r)"
 UPTIME="$(uptime -p | sed 's/^up //')"
 # Thanks Dylan Araps! I took this from pfetch, but made a lot of changes to it.
 has() {
-    _cmd=$(command -v "$1") 2>&3 || return 1
-    [ -x "$_cmd" ] || return 1
+  _cmd=$(command -v "$1") 2>&3 || return 1
+  [ -x "$_cmd" ] || return 1
 }
 get_pkgs() {
   packages=$(
