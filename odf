@@ -69,12 +69,7 @@ get_pkgs() {
   )
   packages=${packages#"${packages%%[![:space:]]*}"}
   packages=${packages%"${packages##*[![:space:]]}"}
-   echo $packages | wc -w
-#  case $packages in
-#    (1?*|[2-9]*)
-#       echo "$packages"
-#    ;;
-#  esac
+  echo $packages | wc -w
 }
 INFO=''
 
