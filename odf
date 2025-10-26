@@ -21,7 +21,7 @@ elif [ "$1" = "uninst" ]; then
   [ "$(id -u)" -eq 0 ] || { echo "Must be run as root." >&2; exit 1; }
   /usr/share/odf/uninstall.sh
   exit
-elif [ "$1" = "uninst" ]; then
+elif [ "$1" = "inst" ]; then
   [ "$(id -u)" -eq 0 ] || { echo "Must be run as root." >&2; exit 1; }
   git clone https://github.com/theoddcell/odf /usr/share/odf
   (cd /usr/share/odf; git pull)
