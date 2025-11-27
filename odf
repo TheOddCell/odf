@@ -31,9 +31,7 @@ elif [ "$1" = "inst" ]; then
 fi
 # Source configs
 if [ -f "/etc/os-release" ]; then
-  while IFS='=' read -r key val; do
-    eval "$key=\$val"
-  done < /etc/os-release
+  . /etc/os-release 2>/dev/null
 fi;if [ -f "/usr/share/odf/logos/$ID" ]; then
   . "/usr/share/odf/logos/$ID"
 fi;if [ -f ~/.config/odf.sh ]; then
